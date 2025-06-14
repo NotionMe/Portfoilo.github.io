@@ -1,8 +1,10 @@
 const cursor = document.querySelector(".cursor");
 const linkElements = document.querySelectorAll(
-  "a, .btn, .btn-github, .project-link, .project-card"
+  "a, .btn,  .project-link"
 );
+const magnetElements = document.querySelectorAll(".about-image, .project-card, .btn, .btn-github");
 
+// Mouse animation variables
 let isMoving = false;
 let animationId;
 let mouseX = 0;
@@ -91,4 +93,33 @@ document.addEventListener("mousemove", (e) => {
   if (!animationId && isMoving) {
     animateCursor();
   }
+});
+
+//Magnit
+const activeMagnet = (event, element) => {
+  const boundBox = element.getBoundingClientRect();
+  const newX = (event.clientX - boundBox.left) / element.offsetWidth - 0.5;
+  const newY = (event.clientY - boundBox.top) / element.offsetHeight - 0.5;
+  const magnetoStrength = 50; 
+
+  gsap.to(element, {
+    duration: 1,
+    x: newX * magnetoStrength,
+    y: newY * magnetoStrength,
+    ease: "power4.out",
+  });
+};
+
+const resetMagnet = (element) => {
+  gsap.to(element, {
+    duration: 1,
+    x: 0,
+    y: 0,
+    ease: "elastic.out",
+  });
+};
+
+magnetElements.forEach(magnet => {
+  magnet.addEventListener("mousemove", (event) => activeMagnet(event, magnet));
+  magnet.addEventListener("mouseleave", () => resetMagnet(magnet));
 });
