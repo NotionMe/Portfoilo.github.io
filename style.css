@@ -22,6 +22,62 @@ html {
   display: block;
   will-change: transform;
 }
+
+.cursor.click-effect {
+  background: linear-gradient(45deg, #6b73ff, #667eea);
+  box-shadow: 
+    0 0 25px #6b73ff,
+    0 0 50px #667eea,
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+  animation: neonClick 0.50s ease-in-out;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.cursor.click-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  border: inherit;
+  box-shadow: inherit;
+  animation: neonClickScale 0.25s ease-in-out;
+}
+
+@keyframes neonClickScale {
+  0% {
+    transform: scale(0.7);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.6);
+    filter: brightness(1.5);
+    box-shadow: 
+      0 0 35px #6b73ff,
+      0 0 70px #667eea,
+      inset 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes neonClick {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
 .cursor.link-hover {
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: #333 0px 0px 10px;
